@@ -5,8 +5,15 @@ var routes = require('./app/routes/index.js');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
+var bodyParser = require('body-parser')
 
 var app = express();
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
 require('dotenv').load();
 require('./app/config/passport')(passport);
 
@@ -18,7 +25,7 @@ app.use('/public', express.static(process.cwd() + '/public'));
 app.use('/common', express.static(process.cwd() + '/app/common'));
 
 app.use(session({
-	secret: 'secretClementine',
+	secret: '43;lj9hf2323246f23f3235imgnfg2',
 	resave: false,
 	saveUninitialized: true
 }));

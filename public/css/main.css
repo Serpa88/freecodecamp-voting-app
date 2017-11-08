@@ -3,7 +3,7 @@
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 100;
   src: local('Roboto'), local('Roboto-Regular'), url('../fonts/Roboto-Regular.ttf') format('truetype');
 }
 
@@ -21,6 +21,8 @@ body {
 	font-size: 16px;
 	margin: 0;
 	padding: 0;
+	max-width: 65%;
+	margin: auto;
 }
 
 header {
@@ -37,6 +39,11 @@ p {
 .container p {
 	text-align: center;
 	padding: 0;
+}
+
+.container {
+	border: 1px solid black;
+	text-align: center;
 }
 
 /****** Header Styling ******/
@@ -73,6 +80,12 @@ header a ~ p {
 
 #display-name {
 	font-weight: 400;
+}
+
+.title {
+	font-family: 'Roboto';
+	font-weight: 100;
+	font-size: 3em;
 }
 
 /****** Login Styling ******/
