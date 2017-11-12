@@ -2,9 +2,11 @@
     var pollsListHome = document.querySelector('#polls-list-home') || null;
     var poll = document.getElementById('poll') || null;
     var myPollsElement = document.querySelector('#my-polls') || null;
+    var deleteButton = document.querySelector('#delete') || null;
     var apiUrl = appUrl + '/api/polls';
     var apiUrlPoll = appUrl + '/api' + window.location.pathname;
     var apiUrlMyPolls = appUrl + '/api/polls/me';
+    var logInUrl = appUrl + '/api/:id';
     
     ajaxFunctions.ready(function() {
 
@@ -22,6 +24,12 @@
         if (poll) {
             ajaxFunctions.ajaxRequest('GET', apiUrlPoll, function(data) {
                 var pollData = JSON.parse(data);
+                ajaxFunctions.ajaxRequest('GET', logInUrl, function(logData) {
+                    if (logData) {
+                        var userObject = JSON.parse(logData);
+                        if (deleteButton && userObject._id === pollData.owner) deleteButton.style = '';
+                    }
+                });
                 var optionsHTML = '';
                 for(var i = 0; i < pollData.options.length; i++) {
                     optionsHTML += `<option value="${pollData.options[i][0]}">${pollData.options[i][0]}</option>`;

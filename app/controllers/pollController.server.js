@@ -59,6 +59,11 @@ function PollsHandler() {
             res.send(docs);
         });
     }
+    this.deletePoll = function (req, res) {
+        Polls.remove({ owner: req.user._id.toString(), _id: req.params.id }, function(){
+            res.redirect('/');
+        });
+    }
 }
 
 module.exports = PollsHandler;

@@ -7,6 +7,7 @@
    var profileRepos = document.querySelector('#profile-repos') || null;
    var displayName = document.querySelector('#display-name');
    var loginButton = document.querySelector('#logout');
+   var deleteButton = document.querySelector('#delete') || null;
    var apiUrl = appUrl + '/api/:id';
 
    function updateHtmlElement(data, element, userProperty) {
@@ -18,6 +19,11 @@
          var userObject = JSON.parse(data).github;
          loginButton.innerHTML = "Logout";
          loginButton.href = "/logout";
+         
+         if(deleteButton) {
+            deleteButton.href = location.pathname + '/delete';
+         }
+         
          if (userObject.displayName !== null) {
             updateHtmlElement(userObject, displayName, 'displayName');
          }

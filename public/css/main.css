@@ -215,3 +215,8 @@ span {
 	display: inline;
 	margin: 0;
 }
+
+.red {
+	background-color: red;
+	width: 70%;
+}

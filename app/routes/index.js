@@ -48,6 +48,8 @@ module.exports = function (app, passport) {
 		.get(pollHandler.getPolls)
 		.post(isLoggedIn, pollHandler.postPoll);
 		
+	app.get('/polls/:id/delete', isLoggedIn, pollHandler.deletePoll);
+		
 	app.get('/api/polls/me', isLoggedIn, pollHandler.getMyPolls);
 		
 	app.route('/api/polls/:id')
