@@ -1,37 +1,41 @@
 'use strict';
 
-(function () {
+(function() {
 
    var profileId = document.querySelector('#profile-id') || null;
    var profileUsername = document.querySelector('#profile-username') || null;
    var profileRepos = document.querySelector('#profile-repos') || null;
    var displayName = document.querySelector('#display-name');
+   var loginButton = document.querySelector('#logout');
    var apiUrl = appUrl + '/api/:id';
 
-   function updateHtmlElement (data, element, userProperty) {
+   function updateHtmlElement(data, element, userProperty) {
       element.innerHTML = data[userProperty];
    }
 
-   ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
-      var userObject = JSON.parse(data);
+   ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function(data) {
+      if (data) {
+         var userObject = JSON.parse(data).github;
+         loginButton.innerHTML = "Logout";
+         loginButton.href = "/logout";
+         if (userObject.displayName !== null) {
+            updateHtmlElement(userObject, displayName, 'displayName');
+         }
+         else {
+            updateHtmlElement(userObject, displayName, 'username');
+         }
 
-      if (userObject.displayName !== null) {
-         updateHtmlElement(userObject, displayName, 'displayName');
-      } else {
-         updateHtmlElement(userObject, displayName, 'username');
+         if (profileId !== null) {
+            updateHtmlElement(userObject, profileId, 'id');
+         }
+
+         if (profileUsername !== null) {
+            updateHtmlElement(userObject, profileUsername, 'username');
+         }
+
+         if (profileRepos !== null) {
+            updateHtmlElement(userObject, profileRepos, 'publicRepos');
+         }
       }
-
-      if (profileId !== null) {
-         updateHtmlElement(userObject, profileId, 'id');   
-      }
-
-      if (profileUsername !== null) {
-         updateHtmlElement(userObject, profileUsername, 'username');   
-      }
-
-      if (profileRepos !== null) {
-         updateHtmlElement(userObject, profileRepos, 'publicRepos');   
-      }
-
    }));
 })();
